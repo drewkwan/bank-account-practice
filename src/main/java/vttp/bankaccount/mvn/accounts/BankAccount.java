@@ -28,7 +28,7 @@ public class BankAccount {
         this.balance = 0;
     }
     //2nd constructor acctName and initial Balance, set balance to initialBal
-    public BankAccount(String acctName, int initialBal) {
+    public BankAccount(String acctName, Float initialBal) {
         this.acctName = acctName;
         this.balance = initialBal;
     } 
@@ -143,3 +143,5 @@ public class BankAccount {
     }
 
 }
+
+//Task 1 Completed
