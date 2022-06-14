@@ -110,5 +110,36 @@ public class BankAccount {
     return this.balance;
     
     }
-    
+
+    //Deposit method:  add to transactions list, only accept positive amount, throw illegal argument exception if wrong
+    public Float deposit (String depositAmt) {
+        Float depositAmtF;
+        try {
+            depositAmtF = Float.parseFloat(depositAmt);
+            if (depositAmtF <= 0) {
+                throw new IllegalArgumentException("Deposit amount cannot be 0 or negative.");
+            } 
+            
+            if(this.isClosed) {
+                throw new IllegalAccessError("The account is closed.");
+            }
+
+            this.balance = this.balance + depositAmtF.floatValue();
+            //Construct transaction history
+            StringBuilder txnStrBuilder = new StringBuilder();
+            txnStrBuilder.append("Deposit $");
+            txnStrBuilder.append(depositAmtF.floatValue());
+            txnStrBuilder.append(" at ");
+            txnStrBuilder.append(LocalDateTime.now());
+            System.out.println(txnStrBuilder.toString());
+            //save it
+            transaction.add(txnStrBuilder.toString());
+        } catch (NumberFormatException e) {
+            System.err.print(e);
+            throw new IllegalArgumentException("Invalid deposit amount");
+        }
+
+        return this.balance;
+    }
+
 }
