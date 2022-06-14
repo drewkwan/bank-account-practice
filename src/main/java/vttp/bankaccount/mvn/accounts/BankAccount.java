@@ -74,13 +74,41 @@ public class BankAccount {
     }
 
     //Withdraw method: Added to transactions list, deposit only +ve amounts, add the statement to list. If incorrect amount, throw illegal argument exception
-    //this indicates the use of a try and catch
+    //this indicates the use of a try block 
     public float withdraw (String withdrawAmt) {
         Float withdrawAmtF;
         try {
             withdrawAmtF = Float.parseFloat(withdrawAmt);
+            if  (withdrawAmtF.floatValue() <= 0) {
+                throw new IllegalArgumentException("Withdrawal amount cannot be 0 or less");
+            }
+
+            if (this.isClosed()) {
+                throw new IllegalArgumentException("The account is closed.");
+            }
             
+            if (withdrawAmtF > this.balance) {
+                throw new IllegalArgumentException("Account value is too low.");
+            }
+
+            this.balance = this.balance - withdrawAmtF.floatValue();
+            //Construct history logline using string builder
+            
+            StringBuilder txnStrBuilder = new StringBuilder();
+            txnStrBuilder.append("Withdraw S");
+            txnStrBuilder.append(withdrawAmtF.floatValue());
+            txnStrBuilder.append(" at ");
+            txnStrBuilder.append(LocalDateTime.now());
+            System.out.println(txnStrBuilder.toString());
+            transaction.add(txnStrBuilder.toString());
+        
+    }   catch(NumberFormatException e) {
+            System.err.print(e);
+            throw new IllegalArgumentException("Invalid withdrawal amount");
         }
 
+    return this.balance;
+    
     }
+    
 }
