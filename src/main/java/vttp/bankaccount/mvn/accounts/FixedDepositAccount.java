@@ -64,7 +64,7 @@ public class FixedDepositAccount extends BankAccount {
         return durationInterestCounter;
     }
 
-    public void setDurationInterestCounter(int durationInterestCounter) {
+    public void setDurationAndInterest(float interest, int duration) {
         if (durationInterestCounter == 1) {
             throw new IllegalArgumentException("Duration and Interest can only be changed once.");
         }
